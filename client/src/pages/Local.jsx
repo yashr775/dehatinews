@@ -140,7 +140,7 @@ const Local = () => {
                                             ? `${post.description.slice(0, 88)}...`
                                             : "No description available"
                                     }
-                                    pubDate={new Date(post.createdAt).toLocaleDateString()}
+                                    pubDate={post.createdAt}
                                     sourceId={"DehatiNews"}
                                     creator={post.creator || "Ajay Sharma"}
                                     imageUrl={post.photos?.[0]?.url}

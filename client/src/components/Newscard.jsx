@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { BsWhatsapp as Watsapp, BsFacebook as Facebook, BsTwitter as Twitter } from "react-icons/bs";
 import { FaRegCopy } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { format } from 'date-fns-tz';
 
 const Newscard = ({ title, link, description, pubDate, imageUrl }) => {
     const url = `${import.meta.env.VITE_SERVER}${link}`;
@@ -12,6 +13,19 @@ const Newscard = ({ title, link, description, pubDate, imageUrl }) => {
             alert("Link copied to clipboard!");
         });
     };
+// Utility function to format date in IST
+const formatToIST = (dateString) => {
+    try {
+        const date = new Date(dateString);
+        // For IST (Asia/Kolkata), we need to specify the time zone
+        return format(date, 'dd MMM yyyy, hh:mm a', {
+            timeZone: 'Asia/Kolkata'
+        });
+    } catch (e) {
+        console.error("Invalid date format:", dateString);
+        return "Date not available";
+    }
+};
 
 
     // Function to generate social media share URLs
@@ -65,7 +79,7 @@ const Newscard = ({ title, link, description, pubDate, imageUrl }) => {
                     <span className="font-bold text-lg">{description}...</span>
                     <br />
                     <span className="mt-2 text-sm text-gray-600">
-                        on {new Date(pubDate).toUTCString()}
+                        on {formatToIST(pubDate)} IST
                     </span>
                 </div>
 
