@@ -20,10 +20,10 @@ const Sponsers = () => {
 
     // Auto-slide every 2 seconds
     useEffect(() => {
-        const interval = setTimeout(() => {
+        const interval = setInterval(() => {
             nextSlide();
         }, 3000);
-        return () => clearTimeout(interval); // Cleanup timeout on component unmount
+        return () => clearInterval(interval); // Cleanup timeout on component unmount
     }, [currentIndex, slides]);
 
     const prevSlide = () => {
@@ -37,14 +37,14 @@ const Sponsers = () => {
     };
 
     return (
-        <div className="w-full md:w-1/2 h-auto flex justify-center items-center py-4 mx-auto mt-16 md:mt-4">
-            {/* Added mt-16 for small screens and md:mt-4 for larger screens */}
-            <div className="relative w-full md:w-1/2 h-[50vh] md:h-[40vh] bg-gray-600 rounded-xl p-2 shadow-lg">
-                {/* Slide */}
+        <div className="w-full flex justify-center items-center py-4 mx-auto mt-16 md:mt-4">
+            {/* Square container with aspect ratio 1:1 */}
+            <div className="relative w-full max-w-[50vw] h-0 pb-[37.5%] bg-gray-600 rounded-xl p-2 shadow-lg">
+                {/* Slide - absolute positioned to fill the square container */}
                 {slides.length > 0 && (
                     <div
                         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-                        className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
+                        className="absolute top-0 left-0 w-full h-full rounded-2xl bg-center bg-cover duration-500"
                     ></div>
                 )}
 
@@ -65,7 +65,7 @@ const Sponsers = () => {
                 </div>
 
                 {/* Dots */}
-                <div className="flex justify-center py-2">
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center">
                     {slides.map((_, index) => (
                         <div
                             key={index}
@@ -83,5 +83,5 @@ const Sponsers = () => {
         </div>
     );
 };
-
 export default Sponsers;
+

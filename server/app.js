@@ -27,7 +27,7 @@ export const envMode = process.env.NODE_ENV || "PRODUCTION";
 const mongoUri = process.env.MONGO_URI;
 export const myCache = new NodeCache();
 
-console.log("CLIENT_URL:", process.env.CLIENT_URL);
+
 
 // Setup CORS
 const corsOptions = {

@@ -13,19 +13,19 @@ const Newscard = ({ title, link, description, pubDate, imageUrl }) => {
             alert("Link copied to clipboard!");
         });
     };
-// Utility function to format date in IST
-const formatToIST = (dateString) => {
-    try {
-        const date = new Date(dateString);
-        // For IST (Asia/Kolkata), we need to specify the time zone
-        return format(date, 'dd MMM yyyy, hh:mm a', {
-            timeZone: 'Asia/Kolkata'
-        });
-    } catch (e) {
-        console.error("Invalid date format:", dateString);
-        return "Date not available";
-    }
-};
+    // Utility function to format date in IST
+    const formatToIST = (dateString) => {
+        try {
+            const date = new Date(dateString);
+            // For IST (Asia/Kolkata), we need to specify the time zone
+            return format(date, 'dd MMM yyyy, hh:mm a', {
+                timeZone: 'Asia/Kolkata'
+            });
+        } catch (e) {
+            console.error("Invalid date format:", dateString);
+            return "Date not available";
+        }
+    };
 
 
     // Function to generate social media share URLs
