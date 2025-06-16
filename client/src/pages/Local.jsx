@@ -119,7 +119,7 @@ const Local = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
         >
-            <div className="pt-4 sm:m-4 flex justify-center">
+            <div className="px-4 mt-4 flex justify-center sm:w-full">
                 <Sponsers />
             </div>
 

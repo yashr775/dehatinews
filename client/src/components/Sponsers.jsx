@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { useGetAllSponsorsQuery } from "../redux/api/sponsorsApi";
-
 const Sponsers = () => {
     const { data } = useGetAllSponsorsQuery();
     const [slides, setSlides] = useState([]);
@@ -12,18 +11,18 @@ const Sponsers = () => {
     useEffect(() => {
         if (data?.sponsors) {
             const imageUrls = data.sponsors.map((sponsor) => ({
-                url: sponsor.photos[0]?.url || "", // Handle case where photos might be missing
+                url: sponsor.photos[0]?.url || "",
             }));
             setSlides(imageUrls);
         }
     }, [data]);
 
-    // Auto-slide every 2 seconds
+    // Auto-slide every 3 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             nextSlide();
         }, 3000);
-        return () => clearInterval(interval); // Cleanup timeout on component unmount
+        return () => clearInterval(interval);
     }, [currentIndex, slides]);
 
     const prevSlide = () => {
@@ -31,16 +30,15 @@ const Sponsers = () => {
     };
 
     const nextSlide = () => {
-        // Generate a random index
         const randomIndex = Math.floor(Math.random() * slides.length);
         setCurrentIndex(randomIndex);
     };
 
     return (
         <div className="w-full flex justify-center items-center py-4 mx-auto mt-16 md:mt-4">
-            {/* Square container with aspect ratio 1:1 */}
-            <div className="relative w-full max-w-[50vw] h-0 pb-[37.5%] bg-gray-600 rounded-xl p-2 shadow-lg">
-                {/* Slide - absolute positioned to fill the square container */}
+            {/* Responsive container - full width on mobile, square on larger screens */}
+            <div className="relative w-full sm:w-full md:max-w-[50vw] h-[200px] sm:h-[250px] md:h-0 md:pb-[37.5%] bg-gray-600 rounded-xl p-2 shadow-lg">
+                {/* Slide - absolute positioned to fill the container */}
                 {slides.length > 0 && (
                     <div
                         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}

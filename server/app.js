@@ -65,7 +65,6 @@ app.get("/viewfull/:id", async (req, res) => {
       `${process.env.SERVER_URL}/api/v1/posts/${id}`
     );
 
-    console.log({ apiResponse });
 
     if (!apiResponse.data.success) {
       return res.status(404).send("Post not found");
