@@ -37,7 +37,7 @@ const Sponsers = () => {
     return (
         <div className="w-full flex justify-center items-center py-4 mx-auto mt-16 md:mt-4">
             {/* Responsive container - full width on mobile, square on larger screens */}
-            <div className="relative w-full sm:w-full md:max-w-[50vw] h-[200px] sm:h-[250px] md:h-0 md:pb-[37.5%] bg-gray-600 rounded-xl p-2 shadow-lg">
+            <div className="relative w-full sm:w-full md:max-w-[50vw] h-[65vh] md:h-0 md:pb-[37.5%] bg-gray-600 rounded-xl p-2 shadow-lg">
                 {/* Slide - absolute positioned to fill the container */}
                 {slides.length > 0 && (
                     <div
