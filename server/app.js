@@ -14,6 +14,7 @@ import axios from "axios";
 // const fs = require("fs");
 import fs from "fs";
 import path from "path";
+import notificationRoutes from "./src/routes/notificationRoutes.js";
 
 dotenv.config({ path: "./.env" });
 
@@ -134,7 +135,8 @@ const initializeServer = async () => {
     app.use("/api/v1/user", userRoute);
     app.use("/api/v1/posts", postsRoute);
     app.use("/api/v1/sponsors", sponsorsRoute);
-    app.use("/api/v1/analytics", analyticsRoute)
+    app.use("/api/v1/analytics", analyticsRoute);
+    app.use("/api/v1/notifications", notificationRoutes);
 
     app.listen(PORT, () => {
       console.log(`🚀 App is listening on port ${PORT}`);
