@@ -8,6 +8,8 @@ import {
 import ReactGA from "react-ga4";
 import Protectedroute from "./components/Protectedroute.jsx";
 import Layout from "./components/Layout.jsx"; // Import the Layout component
+import NotificationSetup from "./components/NotificationSetup";
+
 
 const Home = lazy(() => import("./pages/Home.jsx"));
 const Signin = lazy(() => import("./pages/Signin.jsx"));
@@ -44,6 +46,7 @@ const App = () => {
 
   return (
     <Router>
+    <NotificationSetup />
       <Analytics />
       <Routes>
         {/* Public Pages */}
@@ -175,5 +178,6 @@ const App = () => {
     </Router>
   );
 };
+
 
 export default App;

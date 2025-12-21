@@ -14,21 +14,7 @@ import axios from "axios";
 // const fs = require("fs");
 import fs from "fs";
 import path from "path";
-import webpush from "web-push";
-
-import { subscribeUser } from "./subscribe";
-
-await subscribeUser("YOUR_PUBLIC_VAPID_KEY");
-
-
-const vapidKeys = webpush.generateVAPIDKeys();
-webpush.setVapidDetails(
-  "mailto:dehaatnews@gmail.com",
-  process.env.PUBLIC_VAPID_KEY,
-  process.env.PRIVATE_VAPID_KEY
-);
-
-module.exports = webpush;
+import notificationRoutes from "./src/routes/notificationRoutes.js";
 
 dotenv.config({ path: "./.env" });
 
@@ -149,7 +135,8 @@ const initializeServer = async () => {
     app.use("/api/v1/user", userRoute);
     app.use("/api/v1/posts", postsRoute);
     app.use("/api/v1/sponsors", sponsorsRoute);
-    app.use("/api/v1/analytics", analyticsRoute)
+    app.use("/api/v1/analytics", analyticsRoute);
+    app.use("/api/v1/notifications", notificationRoutes);
 
     app.listen(PORT, () => {
       console.log(`🚀 App is listening on port ${PORT}`);
