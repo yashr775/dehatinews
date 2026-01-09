@@ -29,6 +29,10 @@ ReactGA.initialize(import.meta.env.VITE_GOOGLEID);
 const Analytics = () => {
   const location = useLocation();
 
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js");
+  }
+
   useEffect(() => {
     ReactGA.send("pageview", location.pathname);
   }, [location]);

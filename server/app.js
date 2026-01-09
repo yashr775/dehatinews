@@ -14,23 +14,18 @@ import axios from "axios";
 // const fs = require("fs");
 import fs from "fs";
 import path from "path";
-import webpush from "web-push";
+// import webpush from "web-push";
 
-import { subscribeUser } from "./subscribe";
-
-await subscribeUser("YOUR_PUBLIC_VAPID_KEY");
-
-
-const vapidKeys = webpush.generateVAPIDKeys();
-webpush.setVapidDetails(
-  "mailto:dehaatnews@gmail.com",
-  process.env.PUBLIC_VAPID_KEY,
-  process.env.PRIVATE_VAPID_KEY
-);
-
-module.exports = webpush;
 
 dotenv.config({ path: "./.env" });
+
+// import { subscribeUser } from "./subscribe.js";
+
+// await subscribeUser("YOUR_PUBLIC_VAPID_KEY");
+
+
+// const vapidKeys = webpush.generateVAPIDKeys();
+
 
 const app = express();
 
