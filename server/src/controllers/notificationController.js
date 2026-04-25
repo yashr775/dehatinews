@@ -35,10 +35,11 @@ export const sendNotification = async (payload) => {
             body: "Click to read full article",
             image: payload.image,
             url: payload.url,
-            icon: `${process.env.CLIENT_URL} / dehaatnews.png`,
+            icon: `${process.env.CLIENT_URL}/dehaatnews.png`,
         });
 
         for (const sub of subscriptions) {
+            console.log("📡 Sending to:", sub.endpoint);
             try {
                 await webpush.sendNotification(sub, notificationPayload);
             } catch (err) {

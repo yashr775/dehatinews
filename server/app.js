@@ -6,6 +6,7 @@ import userRoute from "./src/routes/admin.js";
 import postsRoute from "./src/routes/post.js";
 import analyticsRoute from "./src/routes/analytics.js";
 import sponsorsRoute from "./src/routes/sponsor.js";
+import notificationRoute from "./src/routes/notificationRoutes.js"
 import ImageKit from "imagekit";
 import morgan from "morgan";
 import NodeCache from "node-cache";
@@ -145,6 +146,7 @@ const initializeServer = async () => {
     app.use("/api/v1/posts", postsRoute);
     app.use("/api/v1/sponsors", sponsorsRoute);
     app.use("/api/v1/analytics", analyticsRoute)
+    app.use("/api/v1/notifications", notificationRoute)
 
     app.listen(PORT, () => {
       console.log(`🚀 App is listening on port ${PORT}`);

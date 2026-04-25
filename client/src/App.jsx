@@ -31,9 +31,9 @@ ReactGA.initialize(import.meta.env.VITE_GOOGLEID);
 const Analytics = () => {
   const location = useLocation();
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js");
-  }
+  // if ("serviceWorker" in navigator) {
+  //   navigator.serviceWorker.register("/service-worker.js");
+  // }
 
   useEffect(() => {
     ReactGA.send("pageview", location.pathname);
@@ -44,13 +44,26 @@ const Analytics = () => {
 
 const App = () => {
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-  }
+  // if ("serviceWorker" in navigator) {
+  //   navigator.serviceWorker.register("/sw.js");
+  // }
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((reg) => {
+          console.log("✅ Service Worker registered:", reg.scope);
+        })
+        .catch((err) => {
+          console.error("❌ Service Worker error:", err);
+        });
+    }
+  }, []);
 
   return (
     <Router>
-    <NotificationSetup />
+      <NotificationSetup />
       <Analytics />
       <Routes>
         {/* Public Pages */}

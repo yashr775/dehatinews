@@ -1,28 +1,51 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 // client/public/service-worker.js
+
+self.addEventListener("install", (event) => {
+  console.log("🛠️ Service Worker installing...");
+  self.skipWaiting(); // 🔥 force activate immediately
+});
+
+self.addEventListener("activate", async (event) => {
+  console.log("✅ Service Worker activated");
+  event.waitUntil(self.clients.claim()); // 🔥 take control immediately
+});
 
 self.addEventListener("push", function (event) {
   if (!event.data) return;
 
-  let data = {};
-  try {
-    data = event.data.json();
-  } catch (err) {
-    console.error("push parse error", err);
-    return;
-  }
+  event.waitUntil((async () => {
+    let data;
 
-  const options = {
-    body: data.body || "",
-    icon: data.icon || "/dehaatnews.png",
-    image: data.image || "/dehaatnews.png",
-    badge: "/dehaatnews.png",
-    data: { url: data.url || "/" },
-  };
+    try {
+      data = event.data.json();
+      console.log("✅ JSON payload:", data);
+    } catch (err) {
+      console.warn("⚠️ Not JSON, using text");
 
-  event.waitUntil(
-    self.registration.showNotification(data.title || "New Article", options)
-  );
+      const text = await event.data.text(); // ✅ FIX
+      data = {
+        title: "Notification",
+        body: text,
+      };
+    }
+
+    const options = {
+      body: data.body || "",
+      icon: data.icon || "/dehaatnews.png",
+      image: data.image || "/dehaatnews.png",
+      badge: "/dehaatnews.png",
+      data: { url: data.url || "/" },
+    };
+
+    console.log("🔥 SHOWING NOTIFICATION:", data);
+
+    await self.registration.showNotification(
+      data.title || "New Article",
+      options
+    );
+  })());
 });
 
 self.addEventListener("notificationclick", function (event) {
@@ -30,17 +53,19 @@ self.addEventListener("notificationclick", function (event) {
   const urlToOpen = event.notification.data?.url || "/";
 
   event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-      for (const client of clientList) {
-        // if a tab is already open with the URL, focus it
-        if (client.url === urlToOpen && "focus" in client) {
-          return client.focus();
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        for (const client of clientList) {
+          // if a tab is already open with the URL, focus it
+          if (client.url === urlToOpen && "focus" in client) {
+            return client.focus();
+          }
         }
-      }
-      // otherwise open a new tab
-      if (clients.openWindow) {
-        return clients.openWindow(urlToOpen);
-      }
-    })
+        // otherwise open a new tab
+        if (clients.openWindow) {
+          return clients.openWindow(urlToOpen);
+        }
+      }),
   );
 });
