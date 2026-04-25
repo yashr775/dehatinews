@@ -1,4 +1,4 @@
-# 📰 DehaatNews — Full-Stack Freelance Project
+# 📰 DehaatNews — A News app with more than 2000 daily users
 
 **DehaatNews** is a full-stack news application I independently designed, developed, and deployed as a freelance project.  
 It has since evolved into a **fully monetized platform** serving thousands of users daily.
