@@ -14,7 +14,7 @@ const NotificationSetup = () => {
         if (!("serviceWorker" in navigator)) return;
 
         const sw = await navigator.serviceWorker.register("/service-worker.js");
-        console.log("✅ Service Worker registered:", sw);
+        // console.log("✅ Service Worker registered:", sw);
 
         const permission = await Notification.requestPermission();
         if (permission !== "granted") return;
@@ -33,7 +33,7 @@ const NotificationSetup = () => {
             applicationServerKey,
           });
 
-          console.log("📩 New subscription created:", subscription);
+          // console.log("📩 New subscription created:", subscription);
         }
 
         // send to backend
