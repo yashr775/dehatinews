@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 
 const NotificationSetup = () => {
   const initialized = useRef(false);
-  const permission = Notification.permission;
-  console.log("🔔 Current permission:", permission);
+  // const permission = Notification.permission;
+  // console.log("🔔 Current permission:", permission);
 
   useEffect(() => {
     if (initialized.current) return;
