@@ -35,7 +35,7 @@ const Local = () => {
     }, [category]);
 
     const { data, isFetching, error } = useGetAllPostsQuery(
-        { page, limit: 10, category: activeCategory },
+        { page, limit: 4, category: activeCategory },
         {
             skip: !activeCategory,
             keepPreviousData: true,
