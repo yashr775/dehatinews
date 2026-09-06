@@ -1,28 +1,40 @@
 import { envMode } from "../../app.js";
-
 const errorMiddleware = (err, req, res, next) => {
-    err.message ||= "Internal server error";
-    err.statusCode ||= 500;
+    let statusCode = err.statusCode || 500;
+    let message =
+        statusCode === 500
+            ? "Internal server error"
+            : err.message || "Something went wrong";
 
+    // MongoDB duplicate key error
     if (err.code === 11000) {
-        const error = Object.keys(err.keyPattern).join(",");
-        err.message = `Duplicate field - ${error}`;
-        err.statusCode(400);
+        const field = Object.keys(err.keyPattern || {}).join(", ");
+        message = `Duplicate field - ${field}`;
+        statusCode = 400;
     }
 
+    // Mongoose CastError
     if (err.name === "CastError") {
-        const errorPath = err.path;
-        err.message = `Invalid format of ${errorPath}`;
-        err.statusCode = 400;
+        const field = err.path || "field";
+        message = `Invalid format of ${field}`;
+        statusCode = 400;
     }
 
-    const response = { success: false, message: err.message };
+    const response = {
+        success: false,
+        message,
+    };
 
+    // Detailed errors only in development
     if (envMode === "DEVELOPMENT") {
-        response.error = err;
+        response.error = {
+            name: err.name,
+            message: err.message,
+            stack: err.stack,
+        };
     }
 
-    return res.status(err.statusCode).json(response);
+    return res.status(statusCode).json(response);
 };
 
 const TryCatch = (passedFunction) => async (req, res, next) => {

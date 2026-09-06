@@ -15,6 +15,7 @@ import axios from "axios";
 // const fs = require("fs");
 import fs from "fs";
 import path from "path";
+import validateHost from "./src/middleware/validateHost.js";
 // import webpush from "web-push";
 
 
@@ -55,12 +56,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
+app.disable("x-powered-by");
 app.use(express.json());
-
+app.use(validateHost);
 // Basic Route
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
 
 // Initialize ImageKit
 export const imagekit = new ImageKit({

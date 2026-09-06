@@ -342,7 +342,7 @@ const Admin = () => {
                         max={data?.totalPages || 1}
                         value={currentPage}
                         onChange={handlePageChange}
-                        className="w-16 px-2 py-1 text-black rounded text-center"
+                        className="w-16 px-2 py-1 text-white rounded text-center bg-gray-800"
                     />
 
                     <span>
