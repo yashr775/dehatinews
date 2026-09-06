@@ -30,6 +30,17 @@ export const postApi = createApi({
             }),
             providesTags: ["posts"]
         }),
+        getAllPostsForAdminLimit: builder.query({
+            query: ({ page = 1, limit = 10 } = {}) => ({
+                url: "getAllPostsForAdmin",
+                method: "POST",
+                body: {
+                    page,
+                    limit,
+                },
+            }),
+            providesTags: ["posts"],
+        }),
 
         getSinglePost: builder.query({
             query: ({ userId, postId }) => `${postId}?id=${userId}`,
@@ -70,5 +81,7 @@ export const {
     useDeleteImageMutation,
     useDeletePostMutation,
     useUpdatePostMutation,
-    useGetAllPostsForAdminQuery
+    useGetAllPostsForAdminQuery,
+    useGetAllPostsForAdminLimitQuery
+
 } = postApi;

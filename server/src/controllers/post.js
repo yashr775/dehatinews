@@ -71,6 +71,28 @@ const getAllPosts = TryCatch(async (req, res, next) => {
     });
 });
 
+const getAllPostsForAdmin = TryCatch(async (req, res, next) => {
+    const { page = 1, limit = 10 } = req.body;
+
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+
+    const posts = await Posts.find({})
+        .sort({ createdAt: -1 })
+        .skip((pageNumber - 1) * limitNumber)
+        .limit(limitNumber);
+
+    const total = await Posts.countDocuments();
+
+    return res.status(200).json({
+        success: true,
+        posts,
+        total,
+        currentPage: pageNumber,
+        totalPages: Math.ceil(total / limitNumber),
+        hasMore: pageNumber * limitNumber < total,
+    });
+});
 const getSinglePost = TryCatch(async (req, res, next) => {
     const { postId } = req.params;
     const cachedPost = myCache.get(`post_${postId}`);
@@ -217,5 +239,6 @@ export {
     deletePost,
     updatePost,
     downloadPost,
-    getAll
+    getAll,
+    getAllPostsForAdmin
 };

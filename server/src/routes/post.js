@@ -8,7 +8,8 @@ import {
     getSinglePost,
     updatePost,
     downloadPost,
-    getAll
+    getAll,
+    getAllPostsForAdmin
 } from "../controllers/post.js";
 import { multiUpload } from "../middleware/multer.js";
 
@@ -20,6 +21,7 @@ app.get("/getAll", getAll);
 app.delete("/deleteImage", deleteImage);
 app.get("/download", downloadPost);
 app.get("/:postId", getSinglePost);
+app.post("/getAllPostsForAdmin", getAllPostsForAdmin)
 
 app
     .route("/:postId", adminOnly)
