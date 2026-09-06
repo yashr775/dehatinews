@@ -128,6 +128,12 @@ Create Advertisements
 PDF download
 <img width="1919" height="811" alt="pdfdownload" src="https://github.com/user-attachments/assets/894decef-fea8-43e5-8d15-624cfcd97b3f" />
 
+Line Chart for analytics
+<img width="1898" height="747" alt="image" src="https://github.com/user-attachments/assets/9ee914ef-f45b-4754-9a1e-94c22b71517b" />
+
+Bar Chart for analytics
+<img width="1122" height="488" alt="image" src="https://github.com/user-attachments/assets/f9cdbf96-21fd-4a9c-b45e-60b1fc551db3" />
+
 
 
 
