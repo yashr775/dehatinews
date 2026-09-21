@@ -1,31 +1,50 @@
 import { envMode } from "../../app.js";
+
 const errorMiddleware = (err, req, res, next) => {
     let statusCode = err.statusCode || 500;
-    let message =
-        statusCode === 500
-            ? "Internal server error"
-            : err.message || "Something went wrong";
+    let message = "Internal server error";
 
     // MongoDB duplicate key error
     if (err.code === 11000) {
         const field = Object.keys(err.keyPattern || {}).join(", ");
-        message = `Duplicate field - ${field}`;
+
+        message = field
+            ? `Duplicate field - ${field}`
+            : "Duplicate value";
+
         statusCode = 400;
     }
 
     // Mongoose CastError
-    if (err.name === "CastError") {
+    else if (err.name === "CastError") {
         const field = err.path || "field";
+
         message = `Invalid format of ${field}`;
         statusCode = 400;
     }
+
+    // Mongoose validation error
+    else if (err.name === "ValidationError") {
+        message = "Invalid input data";
+        statusCode = 400;
+    }
+
+    // Log complete error details on the server
+    console.error("Application Error:", {
+        name: err.name,
+        message: err.message,
+        stack: err.stack,
+        statusCode,
+        method: req.method,
+        url: req.originalUrl,
+    });
 
     const response = {
         success: false,
         message,
     };
 
-    // Detailed errors only in development
+    // Detailed information ONLY during development
     if (envMode === "DEVELOPMENT") {
         response.error = {
             name: err.name,
