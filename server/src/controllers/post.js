@@ -8,8 +8,9 @@ import PDFDocument from "pdfkit";
 import fetch from "node-fetch";
 import path from "path";
 import { sendNotification } from "../controllers/notificationController.js";
+import { ErrorHandler } from "../utils/utility.js";
 
-const createPost = TryCatch(async (req, res) => {
+const createPost = TryCatch(async (req, res, next) => {
     const { title, description, category } = req.body;
     const photos = req.files;
 

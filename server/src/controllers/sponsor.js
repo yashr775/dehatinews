@@ -3,7 +3,7 @@ import { Sponsors } from "../models/sponsor.js";
 import { myCache, TTL } from "../../app.js";
 import { uploadToImageKit, deleteFromImageKit } from "../utils/features.js"; // ✅ Use ImageKit
 
-const createSponsor = TryCatch(async (req, res) => {
+const createSponsor = TryCatch(async (req, res, next) => {
     const { name } = req.body;
     const photos = req.files;
 

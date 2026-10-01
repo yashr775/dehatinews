@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectToMongoDB, hashPassword } from "./src/utils/features.js";
+
 import userRoute from "./src/routes/admin.js";
 import postsRoute from "./src/routes/post.js";
 import analyticsRoute from "./src/routes/analytics.js";

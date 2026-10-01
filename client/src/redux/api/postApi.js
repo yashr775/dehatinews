@@ -24,7 +24,7 @@ export const postApi = createApi({
         }),
         getAllPosts: builder.query({
             query: ({ page = 1, limit = 4, category = "general" } = {}) => ({
-                url: "/getAllPosts",
+                url: "getAllPosts",
                 method: "POST",
                 body: { page, limit, category },
             }),
