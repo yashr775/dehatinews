@@ -96,6 +96,15 @@ const getAllPostsForAdmin = TryCatch(async (req, res, next) => {
 });
 const getSinglePost = TryCatch(async (req, res, next) => {
     const { postId } = req.params;
+
+    // Reject invalid MongoDB IDs before querying the database.
+    if (!mongoose.isValidObjectId(postId)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid post ID",
+        });
+    }
+
     const cachedPost = myCache.get(`post_${postId}`);
 
     if (cachedPost) {

@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectToMongoDB, hashPassword } from "./src/utils/features.js";
-
+import { errorMiddleware } from "./src/middleware/error.js";
 import userRoute from "./src/routes/admin.js";
 import postsRoute from "./src/routes/post.js";
 import analyticsRoute from "./src/routes/analytics.js";
@@ -31,6 +31,8 @@ dotenv.config({ path: "./.env" });
 
 
 const app = express();
+app.set('etag', 'weak');
+
 app.set('etag', 'weak');
 
 const PORT = process.env.PORT;
@@ -152,6 +154,7 @@ const initializeServer = async () => {
     app.use("/api/v1/sponsors", sponsorsRoute);
     app.use("/api/v1/analytics", analyticsRoute)
     app.use("/api/v1/notifications", notificationRoute)
+    app.use(errorMiddleware);
 
     app.listen(PORT, () => {
       console.log(`🚀 App is listening on port ${PORT}`);
