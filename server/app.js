@@ -31,6 +31,7 @@ dotenv.config({ path: "./.env" });
 
 
 const app = express();
+app.set('etag', 'weak');
 
 const PORT = process.env.PORT;
 export let AdminPassKey;
